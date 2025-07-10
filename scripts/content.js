@@ -23,6 +23,8 @@ function renderReadingTime(article) {
     (date ?? heading).insertAdjacentElement("afterend", badge);
 }
 
+renderReadingTime(document.querySelector('article'));
+
 const observer = new MutationObserver((mutations) => {
     for (const mutation of mutations) {
         // If a new article was added.
