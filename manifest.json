@@ -21,10 +21,10 @@
         "https://github.com/*"
       ],
       "js": [
-        "searchbar.js"
+        "src/searchbar.js"
       ],
       "css": [
-        "searchbar.css"
+        "src/searchbar.css"
       ],
       "run_at": "document_idle"
     },
@@ -33,16 +33,16 @@
         "https://github.com/search*"
       ],
       "js": [
-        "search_results.js"
+        "src/search_results.js"
       ],
       "css": [
-        "search_results.css"
+        "src/search_results.css"
       ],
       "run_at": "document_idle"
     }
   ],
   "background": {
-    "service_worker": "background.js",
+    "service_worker": "src/background.js",
     "type": "module"
   }
 }
