@@ -1,39 +1,22 @@
-/* container wrapper */
+/* ─── Base ─── */
 .autoComplete_wrapper {
     display: inline-block;
     position: relative;
 }
 
-/* test text example */
-.test-class {
-    /* use GitHub’s white fg for high-contrast text */
-    color: var(--color-text-white);
-}
-
-/* — INPUT — */
 .autoComplete_wrapper > input {
     width: 680px;
     height: 40px;
     padding-left: 20px;
     font-size: 1rem;
-
-    /* match GH list-item bg */
-    background-color: var(--color-notifications-row-bg);
-    /* high-contrast text */
-    color: var(--color-text-white);
-
     border-radius: 8px;
-    /* subtle border color */
-    border: 0px solid var(--color-marketing-icon-secondary);
     outline: none;
 }
 
 .autoComplete_wrapper > input::placeholder {
-    /* muted code text is a good placeholder tone */
     color: var(--color-prettylights-syntax-markup-ignored-text);
 }
 
-/* — DROPDOWN LIST — */
 .autoComplete_wrapper > ul {
     position: absolute;
     top: 100%; left: 0; right: 0;
@@ -43,25 +26,18 @@
     padding: 0;
     list-style: none;
     border-radius: 0.6rem;
-
-    /* darker card background */
-    background-color: var(--color-workflow-card-bg);
-    /* matching subtle border */
-    border: 0px solid var(--color-marketing-icon-secondary);
-    /* use GH’s card-header shadow for depth */
     box-shadow: 0 3px 6px var(--color-workflow-card-header-shadow);
-
     z-index: 1000;
     transform-origin: top center;
     transition: transform 0.2s ease, opacity 0.2s ease;
 }
+
 .autoComplete_wrapper > ul[hidden],
 .autoComplete_wrapper > ul:empty {
     opacity: 0;
     transform: scale(0);
 }
 
-/* — ITEMS — */
 .autoComplete_wrapper > ul > li {
     margin: 0.3rem;
     padding: 0.3rem 0.5rem;
@@ -70,21 +46,62 @@
     overflow: hidden;
     text-overflow: ellipsis;
     border-radius: 0.35rem;
-
-    background-color: var(--color-workflow-card-bg);
-    color:            var(--color-text-white);
     transition: background-color 0.1s ease-in-out;
-}
-
-.autoComplete_wrapper > ul > li:hover,
-.autoComplete_wrapper > ul > li[aria-selected="true"] {
-    /* slightly lighter row on hover/selection */
-    background-color: var(--color-notifications-row-read-bg);
-    cursor: pointer;
 }
 
 .autoComplete_wrapper > ul > li mark {
     background-color: transparent;
-    /* standout highlight using bright ANSI green */
     font-weight: bold;
+}
+
+/* ─── Light Mode ─── */
+html[data-color-mode="light"] .autoComplete_wrapper > input {
+    background-color: #ffffff;         /* white */
+    color:            #24292f;         /* fg default */
+    border:           1px solid #d0d7de; /* border default */
+}
+
+html[data-color-mode="light"] .autoComplete_wrapper > ul {
+    background-color: #ffffff;
+    border:           1px solid #d0d7de;
+}
+
+html[data-color-mode="light"] .autoComplete_wrapper > ul > li {
+    background-color: #ffffff;
+    color:            #24292f;
+}
+
+html[data-color-mode="light"] .autoComplete_wrapper > ul > li:hover,
+html[data-color-mode="light"] .autoComplete_wrapper > ul > li[aria-selected="true"] {
+    background-color: #f6f8fa;         /* canvas subtle */
+}
+
+html[data-color-mode="light"] .autoComplete_wrapper > ul > li mark {
+    color: #0969da;                    /* accent-fg */
+}
+
+/* ─── Dark Mode ─── */
+html[data-color-mode="dark"] .autoComplete_wrapper > input {
+    background-color: var(--color-workflow-card-bg);
+    color:            var(--color-text-white);
+    border:           1px solid var(--color-marketing-icon-secondary);
+}
+
+html[data-color-mode="dark"] .autoComplete_wrapper > ul {
+    background-color: var(--color-workflow-card-bg);
+    border:           1px solid var(--color-marketing-icon-secondary);
+}
+
+html[data-color-mode="dark"] .autoComplete_wrapper > ul > li {
+    background-color: var(--color-workflow-card-bg);
+    color:            var(--color-text-white);
+}
+
+html[data-color-mode="dark"] .autoComplete_wrapper > ul > li:hover,
+html[data-color-mode="dark"] .autoComplete_wrapper > ul > li[aria-selected="true"] {
+    background-color: var(--color-notifications-row-read-bg);
+}
+
+html[data-color-mode="dark"] .autoComplete_wrapper > ul > li mark {
+    color: var(--color-ansi-yellow-bright);
 }
