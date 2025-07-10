@@ -21,9 +21,11 @@
         "https://github.com/*"
       ],
       "js": [
+        "src/autoComplete.js",
         "src/searchbar.js"
       ],
       "css": [
+        "src/autoComplete.css",
         "src/searchbar.css"
       ],
       "run_at": "document_idle"
