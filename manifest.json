@@ -1,24 +1,12 @@
 {
   "manifest_version": 3,
-  "name": "Focus Mode",
-  "description": "Enable focus mode on Chrome's official Extensions and Chrome Web Store documentation.",
+  "name": "SearchGit",
+  "description": "Github searchbar on steroids. With search-as-you-type, semantic search README, and more.",
   "version": "1.0",
   "icons": {
-    "16": "images/icon-16.png",
-    "32": "images/icon-32.png",
-    "48": "images/icon-48.png",
-    "128": "images/icon-128.png"
-  },
-  "background": {
-    "service_worker": "background.js"
-  },
-  "action": {
-    "default_icon": {
-      "16": "images/icon-16.png",
-      "32": "images/icon-32.png",
-      "48": "images/icon-48.png",
-      "128": "images/icon-128.png"
-    }
-  },
-  "permissions": ["activeTab", "scripting"]
+    "16": "icons/16x16.png",
+    "32": "icons/32x32.png",
+    "48": "icons/48x48.png",
+    "128": "icons/128x128.png"
+  }
 }
