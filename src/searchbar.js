@@ -15,3 +15,7 @@ new autoComplete({
         highlight: true,
     }
 });
+
+searchgit_searchbar.style.marginRight = "20px"
+searchgit_searchbar.style.marginTop = "-4px"
+
