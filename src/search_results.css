@@ -85,3 +85,44 @@
     text-decoration-color: var(--color-ansi-cyan);
 }
 
+
+.sg-card-title {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;              /* keep within card */
+}
+.sg-card-title h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    line-height: 1.2;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.sg-owner-type {
+    font-size: 0.75rem;
+    color: var(--color-ansi-gray);
+}
+
+/* Body */
+.sg-card-body {
+    padding: 0.75rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+.sg-readme-snippet {
+    max-height: 6.5em;             /* ~5 lines */
+    overflow: hidden;
+    font-size: 0.85rem;
+    padding: 0.5rem;
+    background: var(--color-bg-discussions-row-emoji-box);
+    border-radius: 4px;
+    white-space: pre-wrap;
+    margin: 0;
+}
+.sg-langs {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--color-ansi-cyan);
+}
