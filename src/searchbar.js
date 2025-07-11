@@ -200,3 +200,27 @@ const autocomplete_config = {
 }
 
 const autoCompleteJS = new autoComplete(autocomplete_config);
+
+function selectSuggestion(event){
+    let suggestion = event.detail.selection.value;
+    let payload = suggestion.payload;
+    var displayVal = '';
+    if (suggestion.type === 'query') {
+        displayVal = payload.query;
+    } else if (suggestion.type === 'repo') {
+        displayVal = payload.name;
+    } else if (suggestion.type === 'user') {
+        displayVal = payload.login;
+    } else if (suggestion.type === 'organization') {
+        displayVal = payload.login;
+    }
+    document.getElementById('searchgit-searchbar').value = displayVal;
+}
+
+document.querySelector("#searchgit-searchbar").addEventListener("navigate", function (event) {
+    selectSuggestion(event);
+});
+document.querySelector("#searchgit-searchbar").addEventListener("selection", function (event) {
+    selectSuggestion(event);
+    document.getElementById('searchgit-searchbar').form.submit();
+});
