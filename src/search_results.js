@@ -71,42 +71,29 @@ function renderCards(repos) {
           >
           <div class="sg-card-title">
             <h3>${owner_login}/${name}</h3>
+          </div>
+        </header>
+
+        <section class="sg-card-body" style="margin-top: 8px">
+          ${description ? `<p class="sg-card-desc">${description}</p>` : ''}
+
+          <p class="sg-langs">
+            <span>${programming_language || '—'}</span>
+            <span>⭐ ${stargazers_count.toLocaleString()}</span>
             <time 
               class="sg-updated-at" 
               datetime="${updated_at}"
             >
               Updated ${new Date(updated_at).toLocaleDateString()}
             </time>
-          </div>
-        </header>
-
-        <section class="sg-card-body">
-          ${description ? `<p class="sg-card-desc">${description}</p>` : ''}
-          
-          ${
-            readmeSnippet
-                ? `<pre class="sg-readme-snippet">${readmeSnippet}</pre>`
-                : ''
-        }
-
-          <p class="sg-langs">
-            <strong>Code:</strong> ${programming_language || '—'}
-            &nbsp;|&nbsp;
-            <strong>Natural:</strong> ${linguistic_language || '—'}
           </p>
 
           ${
-            readme_filename
-                ? `<p class="sg-readme-file">
-                  <small>README file: <em>${readme_filename}</em></small>
-                </p>`
+            readmeSnippet
+                ? `<small>${readme_filename}</small><pre class="sg-readme-snippet">${readmeSnippet}</pre>`
                 : ''
-        }
+            }
         </section>
-
-        <footer class="sg-card-stats">
-          ⭐ ${stargazers_count.toLocaleString()}
-        </footer>
       </a>
     `;
 

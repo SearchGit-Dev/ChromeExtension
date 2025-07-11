@@ -16,6 +16,7 @@
     display: flex;
     flex-direction: column;
     transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: 0.75rem 1rem;
 }
 
 .sg-card:hover {
@@ -36,19 +37,17 @@
 .sg-card-header {
     display: flex;
     align-items: center;
-    padding: 1rem;
     background: var(--color-workflow-card-bg);
     border-bottom: 1px solid var(--color-project-gradient-out);
 }
 
 .sg-card-avatar {
-    width: 40px;
-    height: 40px;
+    width: 24px;
+    height: 24px;
     border-radius: 50%;
     flex-shrink: 0;
-    margin-right: 0.75rem;
+    margin-right: 8px;
     object-fit: cover;
-    border: 2px solid var(--color-user-mention-fg);
 }
 
 /* Repo title */
@@ -63,20 +62,10 @@
 /* Description */
 .sg-card-desc {
     flex-grow: 1;
-    padding: 0.75rem 1rem;
     margin: 0;
     font-size: 0.95rem;
     line-height: 1.4;
     color: var(--color-prettylights-syntax-comment);
-}
-
-/* Stars / stats */
-.sg-card-stats {
-    padding: 0.75rem 1rem;
-    font-size: 0.9rem;
-    color: var(--color-ansi-yellow-bright);
-    border-top: 1px solid var(--color-project-gradient-in);
-    text-align: right;
 }
 
 /* Link hover effect */
@@ -106,7 +95,6 @@
 
 /* Body */
 .sg-card-body {
-    padding: 0.75rem 1rem;
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
@@ -115,7 +103,7 @@
     max-height: 6.5em;             /* ~5 lines */
     overflow: hidden;
     font-size: 0.85rem;
-    padding: 0.5rem;
+    padding: 0.25rem;
     background: var(--color-bg-discussions-row-emoji-box);
     border-radius: 4px;
     white-space: pre-wrap;
