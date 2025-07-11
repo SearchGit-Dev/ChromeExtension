@@ -194,6 +194,16 @@ const autocomplete_config = {
                     item.textContent = JSON.stringify(suggestion.payload);
             }
 
+            item.style.cursor = "pointer";
+            item.addEventListener('click', e => {
+                e.preventDefault();
+                if (type === 'query') {
+                    const q = encodeURIComponent(payload.query);
+                    window.location.href = `https://github.com/search?q=${q}`;
+                } else {
+                    window.location.href = payload.github_url;
+                }
+            });
             return item;
         }
     },
