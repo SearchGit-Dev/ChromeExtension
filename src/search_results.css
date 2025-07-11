@@ -1,4 +1,4 @@
-/* Container grid */
+/* Grid container */
 #sg-custom-results.sg-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -7,11 +7,12 @@
     padding: 0;
 }
 
-/* Individual card */
+/* Card wrapper */
 .sg-card {
-    background: #ffffff;
+    background: var(--color-workflow-card-bg);
+    border: 1px solid var(--color-prettylights-syntax-markup-ignored-bg);
     border-radius: 0.5rem;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 8px var(--color-workflow-card-header-shadow);
     overflow: hidden;
     display: flex;
     flex-direction: column;
@@ -20,10 +21,10 @@
 
 .sg-card:hover {
     transform: translateY(-3px);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 16px var(--color-workflow-card-header-shadow);
 }
 
-/* Make the entire card clickable */
+/* Make entire card clickable */
 .sg-card-link {
     display: flex;
     flex-direction: column;
@@ -32,12 +33,13 @@
     height: 100%;
 }
 
-/* Avatar and header */
+/* Header (avatar + title) */
 .sg-card-header {
     display: flex;
     align-items: center;
     padding: 1rem;
-    border-bottom: 1px solid #f0f0f0;
+    background: var(--color-workflow-card-bg);
+    border-bottom: 1px solid var(--color-project-gradient-out);
 }
 
 .sg-card-avatar {
@@ -47,6 +49,7 @@
     flex-shrink: 0;
     margin-right: 0.75rem;
     object-fit: cover;
+    border: 2px solid var(--color-user-mention-fg);
 }
 
 /* Repo title */
@@ -54,7 +57,7 @@
     margin: 0;
     font-size: 1.1rem;
     line-height: 1.3;
-    color: #0366d6;
+    color: var(--color-ansi-blue);
     word-break: break-word;
 }
 
@@ -62,22 +65,28 @@
 .sg-card-desc {
     flex-grow: 1;
     padding: 0.75rem 1rem;
+    margin: 0;
     font-size: 0.95rem;
     line-height: 1.4;
-    color: #586069;
-    margin: 0;
+    color: var(--color-prettylights-syntax-comment);
 }
 
-/* Stats row */
+/* Stars / stats */
 .sg-card-stats {
     padding: 0.75rem 1rem;
     font-size: 0.9rem;
-    color: #333;
-    border-top: 1px solid #f0f0f0;
+    color: var(--color-ansi-yellow-bright);
+    border-top: 1px solid var(--color-project-gradient-in);
     text-align: right;
 }
 
-/* Responsive tweaks */
+/* Link hover effect */
+.sg-card-link:hover h3 {
+    text-decoration: underline;
+    text-decoration-color: var(--color-ansi-cyan);
+}
+
+/* Mobile fallback: single column */
 @media (max-width: 600px) {
     #sg-custom-results.sg-grid {
         grid-template-columns: 1fr;
