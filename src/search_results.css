@@ -1,7 +1,6 @@
-/* Grid container */
 #sg-custom-results.sg-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: 1fr;  /* ← one column only */
     gap: 1rem;
     margin: 1.5rem 0;
     padding: 0;
@@ -86,9 +85,3 @@
     text-decoration-color: var(--color-ansi-cyan);
 }
 
-/* Mobile fallback: single column */
-@media (max-width: 600px) {
-    #sg-custom-results.sg-grid {
-        grid-template-columns: 1fr;
-    }
-}
