@@ -3,12 +3,11 @@ function setupAnonymousAccount() {
         if (searchgit_user_id) return;
         fetch("https://api.searchgit.dev/user/anonymous/account", { method: "POST" })
             .then(r => r.json())
-            .then(({ user_id }) => {
-                chrome.storage.local.set({ searchgit_user_id: user_id });
+            .then(({ id }) => {
+                chrome.storage.local.set({ searchgit_user_id: id });
             })
             .catch(console.error);
     });
 }
 
 chrome.runtime.onInstalled.addListener(setupAnonymousAccount);
-chrome.runtime.onStartup.addListener(setupAnonymousAccount);

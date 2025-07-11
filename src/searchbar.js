@@ -42,7 +42,6 @@ const autocomplete_config = {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        // todo: get actual JWT
                         "Authorization": `Bearer ${jwt}`
                     },
                     body: JSON.stringify({ query })

@@ -23,14 +23,27 @@ function storageSet(items) {
     });
 }
 
-async function getJwt() {
-    // 1) pull the user_id out of storage
+async function ensureUserId() {
     const { searchgit_user_id } = await storageGet(["searchgit_user_id"]);
-    if (!searchgit_user_id) {
-        throw new Error("No anonymous user_id in storage");
+    if (searchgit_user_id) {
+        return searchgit_user_id;
     }
 
-    // 2) check cached token
+    // missing—create one now
+    const res = await fetch("https://api.searchgit.dev/user/anonymous/account", {
+        method: "POST"
+    });
+    const data = await res.json();
+    const { id } = data;
+    await storageSet({ searchgit_user_id: id });
+    return id;
+}
+
+async function getJwt() {
+    // 1) guarantee we have a user_id
+    const searchgit_user_id = await ensureUserId();
+
+    // 2) now the rest of your token‐caching logic…
     const { searchgit_access } = await storageGet(["searchgit_access"]);
     if (searchgit_access) {
         const { token, expiresAt } = searchgit_access;
@@ -39,12 +52,12 @@ async function getJwt() {
         }
     }
 
-    // 3) fetch a new one
-    const form = new URLSearchParams();
-    form.append("grant_type", "password");
-    form.append("username", searchgit_user_id);
-    form.append("password", "anonymous");
-
+    // 3) form‐URL encode & call login…
+    const form = new URLSearchParams({
+        grant_type: "password",
+        username: String(searchgit_user_id),
+        password: "anonymous"
+    });
     const resp = await fetch(
         "https://api.searchgit.dev/user/anonymous/login",
         {
