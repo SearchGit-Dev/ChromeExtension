@@ -2,14 +2,31 @@ const native_searchbar = document.getElementsByClassName("AppHeader-search")[0]
 
 const searchgit_searchbar = document.createElement("input")
 searchgit_searchbar.id = "searchgit-searchbar"
+searchgit_searchbar.name = "q"        // THIS is the key GitHub looks for
 searchgit_searchbar.autocomplete = "off"
 
-const searchgit_searchbar_div = document.createElement("div")
-searchgit_searchbar_div.style.paddingRight = "28px"
-searchgit_searchbar_div.style.marginTop = "-4px"
-searchgit_searchbar_div.appendChild(searchgit_searchbar)
+const form = document.createElement("form")
+form.action = "https://github.com/search"
+form.method = "GET"
+form.style.display = "flex"           // preserve your flex styling
+form.style.alignItems = "center"
+form.style.paddingRight = "28px"
+form.style.marginTop = "-4px"
+form.appendChild(searchgit_searchbar)
+native_searchbar.replaceWith(form)
 
-native_searchbar.replaceWith(searchgit_searchbar_div)
+let lastSelection = null;
+const input = document.querySelector('#searchgit-searchbar');
+input.addEventListener('selection', e => {
+    lastSelection = e.detail.selection.value;
+});
+form.addEventListener('submit', e => {
+    if (lastSelection && lastSelection.type !== 'query') {
+        e.preventDefault();
+        window.location.href = lastSelection.payload.github_url;
+    }
+});
+
 
 const searchgit_typeahead_api_url = "https://api.searchgit.dev/search/typeahead";
 const autocomplete_config = {
@@ -25,7 +42,7 @@ const autocomplete_config = {
                     headers: {
                         "Content-Type": "application/json",
                         // todo: get actual JWT
-                        "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3MzQzODAzNDgzMDU4ODY4MjI0LCJzZXNzaW9uX2lkIjo3MzQ5MjMwNzg4MjMzMTM4MTc2LCJleHAiOjE3NTIxOTY3NjIsImF1ZCI6IlNlYXJjaEdpdCJ9.rDHh3GBJaqsO-PDvFnpQCWNPmpxl3GXZa9SVql5apmo`
+                        "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3MzQzODAzNDgzMDU4ODY4MjI0LCJzZXNzaW9uX2lkIjo3MzQ5MjQ1OTc4ODQ0NTk4MjcyLCJleHAiOjE3NTIyMDAzODMsImF1ZCI6IlNlYXJjaEdpdCJ9.QYbTCTvvM9Re1bFwpomdzvE1LRFIwJrQaGybhnwSGWI`
                     },
                     body: JSON.stringify({ query })
                 });
