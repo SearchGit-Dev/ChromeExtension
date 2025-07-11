@@ -1,9 +1,18 @@
 const native_searchbar = document.getElementsByClassName("AppHeader-search")[0]
 
+function getCurrentQuery() {
+    const url = new URL(window.location.href)
+    if (url.searchParams.get('type') === 'repositories') {
+        return url.searchParams.get('q')
+    }
+    return ""
+}
+
 const searchgit_searchbar = document.createElement("input")
 searchgit_searchbar.id = "searchgit-searchbar"
 searchgit_searchbar.name = "q"        // THIS is the key GitHub looks for
 searchgit_searchbar.autocomplete = "off"
+searchgit_searchbar.value = getCurrentQuery()
 
 const form = document.createElement("form")
 form.action = "https://github.com/search"
