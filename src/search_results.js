@@ -34,61 +34,78 @@ function renderCards(repos) {
     container.id = 'sg-custom-results';
     container.className = 'sg-grid';   // 1-column grid per CSS you already set
 
-    repos.forEach(({ repo, owner, repo_features, owner_type }) => {
+    repos.forEach(repo => {
         const {
-            usage_programming_languages: plangs = [],
-            linguistic_languages: llangs = [],
-            readme_normalized: readme,
-        } = repo_features || {};
+            owner_avatar_url,
+            owner_login,
+            name,
+            description,
+            github_url,
+            stargazers_count,
+            updated_at,
+            programming_language,
+            linguistic_language,
+            readme_filename,
+            readme_normalized,
+        } = repo;
 
-        // ⇢ Small helpers
-        const joinLangs = list =>
-            list.slice(0, 3).map(l => `${l.language} (${l.size} KB)`).join(', ') +
-            (list.length > 3 ? ' …' : '');
-
-        const readmeSnippet = (() => {
-            if (!readme) return '';
-            const lines = readme.trim().split(/\r?\n/).filter(Boolean);
-            return lines.slice(0, 5).join('\n');        // first ≤5 lines
-        })();
+        // build a short snippet from the normalized README
+        const readmeSnippet = readme_normalized
+            ? readme_normalized
+                .trim()
+                .split(/\r?\n/)
+                .filter(Boolean)
+                .slice(0, 5)
+                .join('\n')
+            : '';
 
         const card = document.createElement('div');
         card.className = 'sg-card';
-
         card.innerHTML = /* html */ `
-      <a href="${repo.github_url}" target="_blank" class="sg-card-link">
+      <a href="${github_url}" target="_blank" class="sg-card-link">
         <header class="sg-card-header">
-          <img src="${repo.owner_avatar_url}" class="sg-card-avatar" alt="${owner.login} avatar">
+          <img 
+            src="${owner_avatar_url}" 
+            class="sg-card-avatar" 
+            alt="${owner_login} avatar"
+          >
           <div class="sg-card-title">
-            <h3>${owner.login}/${repo.name}</h3>
-            <span class="sg-owner-type">${owner_type}</span>
+            <h3>${owner_login}/${name}</h3>
+            <time 
+              class="sg-updated-at" 
+              datetime="${updated_at}"
+            >
+              Updated ${new Date(updated_at).toLocaleDateString()}
+            </time>
           </div>
         </header>
 
         <section class="sg-card-body">
-          ${repo.description ? `<p class="sg-card-desc">${repo.description}</p>` : ''}
-
+          ${description ? `<p class="sg-card-desc">${description}</p>` : ''}
+          
           ${
             readmeSnippet
                 ? `<pre class="sg-readme-snippet">${readmeSnippet}</pre>`
                 : ''
         }
 
-          ${
-            plangs.length
-                ? `<p class="sg-langs"><strong>Code:</strong> ${joinLangs(plangs)}</p>`
-                : ''
-        }
+          <p class="sg-langs">
+            <strong>Code:</strong> ${programming_language || '—'}
+            &nbsp;|&nbsp;
+            <strong>Natural:</strong> ${linguistic_language || '—'}
+          </p>
 
           ${
-            llangs.length
-                ? `<p class="sg-langs"><strong>Natural:</strong> ${joinLangs(llangs)}</p>`
+            readme_filename
+                ? `<p class="sg-readme-file">
+                  <small>README file: <em>${readme_filename}</em></small>
+                </p>`
                 : ''
         }
         </section>
 
         <footer class="sg-card-stats">
-          ⭐ ${repo.stargazers_count.toLocaleString('en-US')}
+          ⭐ ${stargazers_count.toLocaleString()}
         </footer>
       </a>
     `;
