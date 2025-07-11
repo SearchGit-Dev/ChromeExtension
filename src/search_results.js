@@ -77,12 +77,12 @@ async function overrideRepoResults() {
     }
 
     let searchgitReposContainer = document.getElementById('searchgit-repo-results');
-    githubReposContainer.replaceWith(searchgitReposContainer);
     if (!searchgitReposContainer) {
         searchgitReposContainer = document.createElement('div');
         searchgitReposContainer.id = 'searchgit-repo-results';
     }
     searchgitReposContainer.innerHTML = '<p>Loading enhanced repos…</p>';
+    githubReposContainer.replaceWith(searchgitReposContainer);
 
     const loading = document.createElement('p');
     loading.id = 'sg-loading';
