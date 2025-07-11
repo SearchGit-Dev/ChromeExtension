@@ -2,6 +2,7 @@ const native_searchbar = document.getElementsByClassName("AppHeader-search")[0]
 
 const searchgit_searchbar = document.createElement("input")
 searchgit_searchbar.id = "searchgit-searchbar"
+searchgit_searchbar.autocomplete = "off"
 
 const searchgit_searchbar_div = document.createElement("div")
 searchgit_searchbar_div.style.paddingRight = "28px"
@@ -227,10 +228,34 @@ function selectSuggestion(event){
     document.getElementById('searchgit-searchbar').value = displayVal;
 }
 
-document.querySelector("#searchgit-searchbar").addEventListener("navigate", function (event) {
-    selectSuggestion(event);
-});
-document.querySelector("#searchgit-searchbar").addEventListener("selection", function (event) {
-    selectSuggestion(event);
-    document.getElementById('searchgit-searchbar').form.submit();
-});
+function formatDisplay(s) {
+    switch (s.type) {
+        case 'query':        return s.payload.query;
+        case 'repo':         return s.payload.name;
+        case 'user':
+        case 'organization': return s.payload.login;
+    }
+}
+
+document
+    .querySelector('#searchgit-searchbar')
+    .addEventListener('selection', e => {
+        const sel = e.detail.selection.value;
+        const display = formatDisplay(sel);
+        const input = document.getElementById('searchgit-searchbar');
+        input.value = display;
+
+        if (e.detail.event?.key === 'Enter') {
+            if (sel.type === 'query') {
+                // send to GitHub’s search form
+                input.form.submit();
+            } else {
+                window.location.href = sel.payload.github_url;
+            }
+        }
+    });
+
+// keep arrow-key behavior unchanged
+document
+    .querySelector('#searchgit-searchbar')
+    .addEventListener('navigate', selectSuggestion);
