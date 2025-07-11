@@ -19,7 +19,7 @@ const autocomplete_config = {
     data: {
         src: async (query) => {
             try {
-                const response = await fetch(searchgit_typeahead_api_url, {
+                const http_call = await fetch(searchgit_typeahead_api_url, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
@@ -27,7 +27,8 @@ const autocomplete_config = {
                     },
                     body: JSON.stringify({ query })
                 });
-                const data = await response.json();
+                const response = await http_call.json();
+                const data = response['secondary'];
                 for (let i = 0; i < data.length; i++) {
                     data[i]['query'] = query;       // placeholder for autocomplete to match everything
                 }
