@@ -22,6 +22,7 @@
       ],
       "js": [
         "src/autoComplete.js",
+        "src/utils.js",
         "src/searchbar.js"
       ],
       "css": [

@@ -36,13 +36,14 @@ const autocomplete_config = {
     searchEngine: "loose",
     data: {
         src: async (query) => {
+            const jwt = await getJwt();
             try {
                 const http_call = await fetch(searchgit_typeahead_api_url, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         // todo: get actual JWT
-                        "Authorization": `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjo3MzQzODAzNDgzMDU4ODY4MjI0LCJzZXNzaW9uX2lkIjo3MzQ5MjQ1OTc4ODQ0NTk4MjcyLCJleHAiOjE3NTIyMDAzODMsImF1ZCI6IlNlYXJjaEdpdCJ9.QYbTCTvvM9Re1bFwpomdzvE1LRFIwJrQaGybhnwSGWI`
+                        "Authorization": `Bearer ${jwt}`
                     },
                     body: JSON.stringify({ query })
                 });
