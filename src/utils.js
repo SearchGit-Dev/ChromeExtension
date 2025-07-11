@@ -55,7 +55,7 @@ async function getJwt() {
     // 3) form‐URL encode & call login…
     const form = new URLSearchParams({
         grant_type: "password",
-        username: String(searchgit_user_id),
+        username: searchgit_user_id,
         password: "anonymous"
     });
     const resp = await fetch(
