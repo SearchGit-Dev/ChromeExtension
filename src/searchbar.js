@@ -274,18 +274,7 @@ function inject_searchgit_searchbar() {
 
 function selectSuggestion(event){
     let suggestion = event.detail.selection.value;
-    let payload = suggestion.payload;
-    var displayVal = '';
-    if (suggestion.type === 'query') {
-        displayVal = payload.query;
-    } else if (suggestion.type === 'repo') {
-        displayVal = payload.name;
-    } else if (suggestion.type === 'user') {
-        displayVal = payload.login;
-    } else if (suggestion.type === 'organization') {
-        displayVal = payload.login;
-    }
-    document.getElementById('searchgit-searchbar').value = displayVal;
+    document.getElementById('searchgit-searchbar').value = formatDisplay(suggestion);
 }
 
 function formatDisplay(s) {
@@ -293,7 +282,7 @@ function formatDisplay(s) {
         case 'query':        return s.payload.query;
         case 'repo':         return s.payload.name;
         case 'user':
-        case 'organization': return s.payload.login;
+        case 'organization': return s.payload.login + '/';
     }
 }
 
