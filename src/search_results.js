@@ -120,9 +120,14 @@ async function overrideRepoResults() {
     const githubReposContainer = getGithubRepoContainer();
     if (githubReposContainer) {
         githubReposContainer.style.display = 'none';
+    } else {
+        return
     }
 
     let searchgitReposContainer = document.getElementById('searchgit-repo-results');
+    if (searchgitReposContainer != null) {
+        return
+    }
     if (!searchgitReposContainer) {
         searchgitReposContainer = document.createElement('div');
         searchgitReposContainer.id = 'searchgit-repo-results';
@@ -145,5 +150,11 @@ async function overrideRepoResults() {
         loading.textContent = `Error loading results: ${err.message}`;
     }
 }
+
+const search_results_observer = new MutationObserver(function(mutationsList, observer) {
+    console.log("haha search_results_observer");
+    overrideRepoResults()
+});
+search_results_observer.observe(document.body, { childList: true, subtree: true });
 
 overrideRepoResults()

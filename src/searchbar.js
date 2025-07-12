@@ -297,9 +297,10 @@ function formatDisplay(s) {
     }
 }
 
-const observer = new MutationObserver(function(mutationsList, observer) {
+const searchbar_observer = new MutationObserver(function(mutationsList, observer) {
+    console.log("haha searchbar_observer");
     inject_searchgit_searchbar()
 });
-observer.observe(document.body, { childList: true, subtree: true });
+searchbar_observer.observe(document.body, { childList: true, subtree: true });
 
 inject_searchgit_searchbar()
