@@ -26,6 +26,9 @@ function inject_searchgit_searchbar() {
     if (native_searchbar == null) {
         return
     }
+    if (document.getElementById("searchgit-searchbar") != null) {
+        return
+    }
     const searchgit_searchbar = document.createElement("input")
     searchgit_searchbar.id = "searchgit-searchbar"
     searchgit_searchbar.name = "q"        // THIS is the key GitHub looks for
