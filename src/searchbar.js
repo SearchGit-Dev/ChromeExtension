@@ -9,6 +9,18 @@ function getCurrentQuery() {
     return ""
 }
 
+async function getTypeaheads(query) {
+    const jwt = await getJwt();
+    return await fetch(searchgit_typeahead_api_url, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Bearer ${jwt}`
+        },
+        body: JSON.stringify({ query })
+    });
+}
+
 function inject_searchgit_searchbar() {
     const native_searchbar = document.getElementsByClassName("AppHeader-search")[0]
     if (native_searchbar == null) {
@@ -48,16 +60,8 @@ function inject_searchgit_searchbar() {
         searchEngine: "loose",
         data: {
             src: async (query) => {
-                const jwt = await getJwt();
                 try {
-                    const http_call = await fetch(searchgit_typeahead_api_url, {
-                        method: "POST",
-                        headers: {
-                            "Content-Type": "application/json",
-                            "Authorization": `Bearer ${jwt}`
-                        },
-                        body: JSON.stringify({ query })
-                    });
+                    const http_call = await getTypeaheads(query);
                     const response = await http_call.json();
                     const data = response['secondary'];
                     for (let i = 0; i < data.length; i++) {
@@ -262,6 +266,7 @@ function inject_searchgit_searchbar() {
         .querySelector('#searchgit-searchbar')
         .addEventListener('navigate', selectSuggestion);
 
+    getTypeaheads("")        // warm up typeahead request
 }
 
 function selectSuggestion(event){
@@ -289,7 +294,9 @@ function formatDisplay(s) {
     }
 }
 
-getJwt()    // Warmup login request
+const observer = new MutationObserver(function(mutationsList, observer) {
+    inject_searchgit_searchbar()
+});
+observer.observe(document.body, { childList: true, subtree: true });
+
 inject_searchgit_searchbar()
-document.addEventListener("pjax:end", getJwt);
-document.addEventListener("pjax:end", inject_searchgit_searchbar);
