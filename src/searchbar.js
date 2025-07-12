@@ -285,3 +285,7 @@ document
 document
     .querySelector('#searchgit-searchbar')
     .addEventListener('navigate', selectSuggestion);
+
+
+// Warmup login request
+getJwt()
