@@ -87,15 +87,7 @@ function inject_searchgit_searchbar() {
             }
         },
         resultsList: {
-            element: (list, data) => {
-                if (data.results.length === 0) {
-                    const info = document.createElement("p");
-                    info.classList.add('pt-2', 'px-3', 'text-secondary', 'text-sm');
-                    info.innerHTML = `Nothing found`;
-                    list.prepend(info);
-                }
-            },
-            noResults: true,
+            noResults: false,
             maxResults: 20,
             tabSelect: true
         },
