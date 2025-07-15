@@ -112,7 +112,7 @@ function inject_searchgit_searchbar() {
                     img.width        = 20;
                     img.height       = 20;
                     img.style.borderRadius = "50%";
-                    img.style.marginRight   = "0.5rem";
+                    img.style.marginRight   = "8px";
                     return img;
                 };
 
