@@ -26,8 +26,7 @@
         "src/searchbar.js"
       ],
       "css": [
-        "src/autoComplete.css",
-        "src/searchbar.css"
+        "src/autoComplete.css"
       ],
       "run_at": "document_end"
     },
