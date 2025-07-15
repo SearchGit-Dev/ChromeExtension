@@ -61,9 +61,13 @@ function inject_searchgit_searchbar() {
         lastSelection = e.detail.selection.value;
     });
     form.addEventListener('submit', e => {
+        e.preventDefault();
         if (lastSelection && lastSelection.type !== 'query') {
-            e.preventDefault();
             window.location.href = lastSelection.payload.github_url;
+        } else {
+            // do full page load so that search_results.js can be executed properly
+            const params = new URLSearchParams(new FormData(form)).toString();
+            window.location.href = `${form.action}?${params}`;
         }
     });
 
