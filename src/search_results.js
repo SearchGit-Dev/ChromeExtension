@@ -77,7 +77,7 @@ function renderCards(repos) {
           </div>
         </header>
 
-        <section class="sg-card-body" style="margin-top: 8px">
+        <section class="sg-card-body">
           ${description ? `<p class="sg-card-desc">${description}</p>` : ''}
 
           <p class="sg-langs">
@@ -91,11 +91,6 @@ function renderCards(repos) {
             </time>
           </p>
 
-          ${
-            readmeSnippet
-                ? `<small>${readme_filename}</small><pre class="sg-readme-snippet">${readmeSnippet}</pre>`
-                : ''
-            }
         </section>
       </a>
     `;
