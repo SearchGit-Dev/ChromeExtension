@@ -16,6 +16,30 @@
     border:            1px solid var(--borderColor-default);
 }
 
+@media (max-width: 1300px) {
+    .autoComplete_wrapper > input {
+        width: 600px;
+    }
+}
+
+@media (max-width: 1200px) {
+    .autoComplete_wrapper > input {
+        width: 500px;
+    }
+}
+
+@media (max-width: 600px) {
+    .autoComplete_wrapper > input {
+        width: 400px;
+    }
+}
+
+@media (max-width: 500px) {
+    .autoComplete_wrapper > input {
+        width: 300px;
+    }
+}
+
 .autoComplete_wrapper > input::placeholder {
     color: var(--color-prettylights-syntax-markup-ignored-text);
     transition: all 0.3s ease;
