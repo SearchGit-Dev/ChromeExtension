@@ -131,7 +131,7 @@
     width: 40px;
     height: 40px;
     border: 4px solid var(--borderColor-default);
-    border-top-color: var(--color-accent);
+    border-top-color: var(--bgColor-accent-emphasis);
     border-radius: 50%;
     animation: sg-spin 1s linear infinite;
 }
@@ -142,6 +142,7 @@
 .sg-loading-text {
     margin-top: 0.75rem;
     font-size: 0.9rem;
+    color: var(--fgColor-muted);
 }
 
 /* skeleton card styles */
@@ -151,24 +152,9 @@
     gap: 1rem;
 }
 .sg-skeleton-card {
-    background: var(--bgColor-muted);
+    background-color: var(--bgColor-muted);
     border-radius: 8px;
     height: 280px;
     position: relative;
     overflow: hidden;
-}
-.sg-skeleton-card::before {
-    content: "";
-    position: absolute;
-    top: 0; left: -150px; bottom: 0; right: 0;
-    background: linear-gradient(
-            90deg,
-            transparent,
-            rgba(255,255,255,0.4),
-            transparent
-    );
-    animation: sg-skeleton-shimmer 1.2s infinite;
-}
-@keyframes sg-skeleton-shimmer {
-    to { transform: translateX(300px); }
 }
