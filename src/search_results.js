@@ -152,7 +152,6 @@ async function overrideRepoResults() {
 }
 
 const search_results_observer = new MutationObserver(function(mutationsList, observer) {
-    console.log("haha search_results_observer");
     overrideRepoResults()
 });
 search_results_observer.observe(document.body, { childList: true, subtree: true });

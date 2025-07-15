@@ -320,7 +320,6 @@ function formatCount(count) {
 }
 
 const searchbar_observer = new MutationObserver(function(mutationsList, observer) {
-    console.log("haha searchbar_observer");
     inject_searchgit_searchbar()
 });
 searchbar_observer.observe(document.body, { childList: true, subtree: true });
