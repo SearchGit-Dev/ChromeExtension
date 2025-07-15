@@ -173,22 +173,26 @@ async function overrideRepoResults() {
         searchgitReposContainer = document.createElement('div');
         searchgitReposContainer.id = 'searchgit-repo-results';
     }
-    searchgitReposContainer.innerHTML = '<p>Loading enhanced repos…</p>';
     githubReposContainer.replaceWith(searchgitReposContainer);
 
-    const loading = document.createElement('p');
-    loading.id = 'sg-loading';
-    loading.textContent = 'Loading enhanced results…';
+    const skeletonList = document.createElement('div');
+    skeletonList.className = 'sg-skeleton-list';
+    for (let i = 0; i < 6; i++) {
+        const card = document.createElement('div');
+        card.className = 'sg-skeleton-card';
+        skeletonList.appendChild(card);
+    }
+
+    searchgitReposContainer.appendChild(skeletonList);
 
     try {
         const { query, page } = readQuery();
         const data = await fetchRepos({ query, page });
-        loading.remove();
         const cards = renderCards(data.repos);
         searchgitReposContainer.replaceWith(cards)
 
     } catch (err) {
-        loading.textContent = `Error loading results: ${err.message}`;
+        skeletonList.remove();
     }
 }
 
