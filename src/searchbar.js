@@ -202,13 +202,14 @@ function inject_searchgit_searchbar() {
                         const left = document.createElement("div");
                         left.style.display = "flex";
                         left.style.alignItems = "center";
-                        left.appendChild(
-                            renderAvatar(payload.avatar_url, payload.login)
-                        );
+                        left.appendChild(renderAvatar(payload.avatar_url, payload.login));
                         left.appendChild(document.createTextNode(payload.login));
 
+                        left.appendChild(createBadge("user"));
+
                         const right = document.createElement("span");
-                        right.textContent = `${payload.followers_count} followers`;
+                        right.innerHTML = `<small>${formatCount(payload.followers_count)} followers</small>`;
+                        right.style.color = 'var(--color-prettylights-syntax-comment)'
 
                         item.append(left, right);
                     }
@@ -219,12 +220,12 @@ function inject_searchgit_searchbar() {
                         const left = document.createElement("div");
                         left.style.display = "flex";
                         left.style.alignItems = "center";
-                        left.appendChild(
-                            renderAvatar(payload.avatar_url, payload.login)
-                        );
+                        left.appendChild(renderAvatar(payload.avatar_url, payload.login));
                         left.appendChild(document.createTextNode(payload.login));
 
-                        item.append(left);
+                        left.appendChild(createBadge("organization"))
+
+                        item.appendChild(left);
                     }
                         break;
 
@@ -276,6 +277,27 @@ function inject_searchgit_searchbar() {
 function selectSuggestion(event){
     let suggestion = event.detail.selection.value;
     document.getElementById('searchgit-searchbar').value = formatDisplay(suggestion);
+}
+
+function createBadge(label) {
+    const badge = document.createElement("span");
+    badge.textContent = label;
+
+    // common styling
+    badge.style.marginLeft     = "0.5rem";
+    badge.style.marginTop = "2px";
+    badge.style.display        = "inline-flex";
+    badge.style.alignItems     = "center";
+    badge.style.fontSize       = "0.65em";
+    badge.style.lineHeight     = "1";
+    badge.style.padding        = "0.05em 0.3em";
+    badge.style.height         = "1.2em";
+    badge.style.backgroundColor= "#e1e4e8";
+    badge.style.color          = "#24292e";
+    badge.style.borderRadius   = "0.6rem";
+    badge.style.fontWeight     = "600";
+
+    return badge;
 }
 
 function formatDisplay(s) {
