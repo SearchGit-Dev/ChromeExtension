@@ -110,12 +110,40 @@ function getGithubRepoContainer() {
     return document.querySelector('div[data-testid="results-list"]');
 }
 
+function getGithubPagination() {
+    return document.querySelector('nav[aria-label="Pagination"]')
+}
+
+function hideSidebarGroups() {
+    // 1) Find the overall facets container
+    const pane = document.querySelector('[data-testid="facets-pane"]');
+    if (!pane) return;
+
+    // 2) Look at each direct <li> under the filter-groups list
+    pane
+        .querySelectorAll('[data-testid="filter-groups"] > li')
+        .forEach(group => {
+            // 3) Find an <h3> inside the group
+            const heading = group.querySelector('h3');
+            if (!heading) return;
+
+            const txt = heading.textContent.trim();
+            if (txt === 'Languages' || txt === 'Advanced') {
+                group.style.display = 'none';
+            }
+        });
+}
+
 async function overrideRepoResults() {
     if (!isRepoSearch()) return;
 
     const githubReposContainer = getGithubRepoContainer();
     if (githubReposContainer) {
         githubReposContainer.style.display = 'none';
+        if (getGithubPagination()) {
+            getGithubPagination().style.display = 'none';
+        }
+        hideSidebarGroups()
     } else {
         return
     }
