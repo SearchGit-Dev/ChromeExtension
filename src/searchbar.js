@@ -283,6 +283,26 @@ function inject_searchgit_searchbar() {
         .addEventListener('navigate', selectSuggestion);
 
     getTypeaheads("")        // warm up typeahead request
+
+    // Slash to activate searching
+    document.addEventListener('keydown', (e) => {
+        // only trigger on plain slash, no modifiers
+        if (e.key === '/' && !e.ctrlKey && !e.metaKey && !e.altKey) {
+            const active = document.activeElement;
+            const tag = active && active.tagName && active.tagName.toLowerCase();
+
+            // ignore if user is already typing in an input, textarea or a contentEditable
+            if (tag !== 'input' && tag !== 'textarea' && !active.isContentEditable) {
+                const input = document.getElementById('searchgit-searchbar');
+                if (input) {
+                    e.preventDefault();     // stop the `/` from getting inserted anywhere
+                    input.focus();
+                    // optionally select the text so new typing replaces the old query:
+                    // input.select();
+                }
+            }
+        }
+    });
 }
 
 function selectSuggestion(event){
