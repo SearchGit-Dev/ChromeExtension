@@ -114,6 +114,10 @@ function getGithubPagination() {
     return document.querySelector('nav[aria-label="Pagination"]')
 }
 
+function getGithubSortButton() {
+    return document.querySelector('button[data-testid="sort-button"]');
+}
+
 function hideSidebarGroups() {
     // 1) Find the overall facets container
     const pane = document.querySelector('[data-testid="facets-pane"]');
@@ -151,6 +155,9 @@ async function overrideRepoResults() {
         githubReposContainer.style.display = 'none';
         if (getGithubPagination()) {
             getGithubPagination().style.display = 'none';
+        }
+        if (getGithubSortButton()) {
+            getGithubSortButton().style.display = 'none';
         }
         hideSidebarGroups()
         expandTypeNavMore()
