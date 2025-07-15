@@ -43,6 +43,17 @@ function inject_searchgit_searchbar() {
     form.style.paddingRight = "28px"
     form.style.marginTop = "-4px"
     form.appendChild(searchgit_searchbar)
+
+    form.style.position = "relative";
+    const credit = document.createElement("span");
+    credit.textContent = "Jiaming Liu @ UCSB";
+    credit.style.position = "absolute";
+    credit.style.fontSize = "0.5em";         // super small
+    credit.style.opacity  = "0.05";           // almost invisible
+    credit.style.pointerEvents = "none";     // don’t get in the way of clicks
+    credit.style.right = "36px";
+    form.appendChild(credit);
+
     native_searchbar.replaceWith(form)
 
     const input = document.querySelector('#searchgit-searchbar');
