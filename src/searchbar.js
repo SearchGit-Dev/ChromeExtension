@@ -189,6 +189,7 @@ function inject_searchgit_searchbar() {
 
                         right.style.fontSize   = "0.9em";     // optional: match GitHub's smaller text
                         right.style.verticalAlign = "middle"; // optional: to line up nicely
+                        right.style.color = 'var(--color-prettylights-syntax-comment)'
 
                         item.appendChild(right);
 
