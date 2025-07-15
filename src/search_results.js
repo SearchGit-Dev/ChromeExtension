@@ -1,5 +1,8 @@
 function isRepoSearch() {
-    return new URL(window.location.href).searchParams.get('type') === 'repositories';
+    const url = new URL(window.location.href);
+    if (url.hostname !== 'github.com') return false;
+    if (!url.pathname.startsWith('/search')) return false;
+    return url.searchParams.get('type') === 'repositories';
 }
 
 function readQuery() {
@@ -104,14 +107,7 @@ function renderCards(repos) {
 }
 
 function getGithubRepoContainer() {
-    let container = document.querySelector('ul.repo-list');
-    if (container) return container;
-
-    container = document.querySelector('.search-results-page');
-    if (container) return container;
-
-    const item = document.querySelector('.repo-list-item');
-    return item && item.closest('ul, div');
+    return document.querySelector('div[data-testid="results-list"]');
 }
 
 async function overrideRepoResults() {
