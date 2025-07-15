@@ -184,7 +184,13 @@ function inject_searchgit_searchbar() {
                         );
 
                         const right = document.createElement("span");
-                        right.textContent = `${payload.stargazers_count} ⭐`;
+
+                        right.innerHTML = `☆ <small>${formatCount(payload.stargazers_count)}</small>`;
+
+                        right.style.fontSize   = "0.9em";     // optional: match GitHub's smaller text
+                        right.style.verticalAlign = "middle"; // optional: to line up nicely
+
+                        item.appendChild(right);
 
                         item.append(left, right);
                     }
@@ -278,6 +284,16 @@ function formatDisplay(s) {
         case 'user':
         case 'organization': return s.payload.login + '/';
     }
+}
+
+function formatCount(count) {
+    if (count >= 1_000_000) {
+        return (count / 1_000_000).toFixed(1).replace(/\.0$/, "") + "M";
+    }
+    if (count >= 1_000) {
+        return (count / 1_000).toFixed(1).replace(/\.0$/, "") + "k";
+    }
+    return count.toString();
 }
 
 const searchbar_observer = new MutationObserver(function(mutationsList, observer) {
