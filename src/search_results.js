@@ -134,6 +134,15 @@ function hideSidebarGroups() {
         });
 }
 
+function expandTypeNavMore() {
+    const navButtons = document.querySelectorAll('[data-testid="filter-groups"] button');
+    const moreBtn = Array.from(navButtons).find(b => b.textContent.trim() === 'More');
+    if (moreBtn) {
+        moreBtn.click();
+    }
+}
+
+
 async function overrideRepoResults() {
     if (!isRepoSearch()) return;
 
@@ -144,6 +153,7 @@ async function overrideRepoResults() {
             getGithubPagination().style.display = 'none';
         }
         hideSidebarGroups()
+        expandTypeNavMore()
     } else {
         return
     }
