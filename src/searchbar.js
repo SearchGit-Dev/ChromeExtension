@@ -145,6 +145,8 @@ function inject_searchgit_searchbar() {
       />
     </svg>
   `;
+                        search_icon.style.marginLeft = '3.5px'
+                        search_icon.style.marginRight = '0.5px'
 
                         // 2) set the item’s text
                         const label = document.createElement("span");
