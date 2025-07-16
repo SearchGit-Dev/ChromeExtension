@@ -80,10 +80,10 @@ function renderCards(repos) {
       <a href="${github_url}" target="_blank" class="sg-card-link">
         <section class="sg-card-header">
           <div style="display: flex; justify-content: space-between; margin-bottom: 4px">
-            <time class="sg-updated-at" datetime="${updated_at}" style="font-size: 12px; color: var(--fgColor-muted)">
+            <time class="sg-updated-ago" datetime="${updated_at}">
               Updated ${humanizer(updated_ago)} ago
             </time>
-            <span style="font-size: 12px" class="sg-programming-lang">${programming_language || ''}</span>
+            <span class="sg-programming-lang">${programming_language || ''}</span>
           </div>
           <div style="display: flex; justify-content: start; align-items: center">
              <img src="${owner_avatar_url}"  class="sg-card-avatar" alt="${owner_login} avatar">
