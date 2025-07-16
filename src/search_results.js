@@ -103,6 +103,8 @@ function renderCards(repos) {
              <span class="sg-stars-count" style="margin-right:8px">★ ${formatCount(stargazers_count)}</span>
              ${topicsHtml}
          </div>
+         
+         <small class="sg-readme">${readme_normalized}</small>
 
         </section>
       </a>
