@@ -35,6 +35,7 @@
         "https://github.com/search*"
       ],
       "js": [
+        "src/humanize_duration.js",
         "src/search_results.js"
       ],
       "css": [

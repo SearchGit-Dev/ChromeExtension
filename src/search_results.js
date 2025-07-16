@@ -1,3 +1,13 @@
+const humanizer = humanizeDuration.humanizer({
+    // only show the largest unit (e.g. “5 days” not “5 days, 3 hours”)
+    largest: 1,
+    // round to an integer
+    round: true,
+    // you can tweak units if you don’t want weeks, months, etc:
+    // units: ["y","mo","d","h","m","s"],
+});
+
+
 function isRepoSearch() {
     const url = new URL(window.location.href);
     if (url.hostname !== 'github.com') return false;
@@ -64,32 +74,27 @@ function renderCards(repos) {
 
         const card = document.createElement('div');
         card.className = 'sg-card';
+        const updated_ago = Date.now() - (new Date(updated_at));
+
         card.innerHTML = /* html */ `
       <a href="${github_url}" target="_blank" class="sg-card-link">
-        <header class="sg-card-header">
-          <img 
-            src="${owner_avatar_url}" 
-            class="sg-card-avatar" 
-            alt="${owner_login} avatar"
-          >
-          <div class="sg-card-title">
-            <h3>${owner_login}/${name}</h3>
+        <section class="sg-card-header">
+          <div style="display: flex; justify-content: space-between; margin-bottom: 4px">
+            <time class="sg-updated-at" datetime="${updated_at}" style="font-size: 12px; color: var(--fgColor-muted)">
+              Updated ${humanizer(updated_ago)} ago
+            </time>
+            <span style="font-size: 12px" class="sg-programming-lang">${programming_language || '—'}</span>
           </div>
-        </header>
+          <div style="display: flex; justify-content: start; align-items: center">
+             <img src="${owner_avatar_url}"  class="sg-card-avatar" alt="${owner_login} avatar">
+             <div class="sg-card-title"><h3>${owner_login}/${name}</h3></div>
+            </div>
+        </section>
 
         <section class="sg-card-body">
           ${description ? `<p class="sg-card-desc">${description}</p>` : ''}
 
-          <p class="sg-langs">
-            <span>${programming_language || '—'}</span>
-            <span>⭐ ${stargazers_count.toLocaleString()}</span>
-            <time 
-              class="sg-updated-at" 
-              datetime="${updated_at}"
-            >
-              Updated ${new Date(updated_at).toLocaleDateString()}
-            </time>
-          </p>
+         <span>☆ ${formatCount(stargazers_count)}</span>
 
         </section>
       </a>
@@ -99,6 +104,16 @@ function renderCards(repos) {
     });
 
     return container;
+}
+
+function formatCount(count) {
+    if (count >= 1_000_000) {
+        return (count / 1_000_000).toFixed(1).replace(/\.0$/, "") + "M";
+    }
+    if (count >= 1_000) {
+        return (count / 1_000).toFixed(1).replace(/\.0$/, "") + "k";
+    }
+    return count.toString();
 }
 
 function getGithubRepoContainer() {
