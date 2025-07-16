@@ -83,7 +83,7 @@ function renderCards(repos) {
             <time class="sg-updated-at" datetime="${updated_at}" style="font-size: 12px; color: var(--fgColor-muted)">
               Updated ${humanizer(updated_ago)} ago
             </time>
-            <span style="font-size: 12px" class="sg-programming-lang">${programming_language || '—'}</span>
+            <span style="font-size: 12px" class="sg-programming-lang">${programming_language || ''}</span>
           </div>
           <div style="display: flex; justify-content: start; align-items: center">
              <img src="${owner_avatar_url}"  class="sg-card-avatar" alt="${owner_login} avatar">
@@ -94,7 +94,7 @@ function renderCards(repos) {
         <section class="sg-card-body">
           ${description ? `<p class="sg-card-desc">${description}</p>` : ''}
 
-         <span>☆ ${formatCount(stargazers_count)}</span>
+         <span class="sg-stars-count">★ ${formatCount(stargazers_count)}</span>
 
         </section>
       </a>
