@@ -119,6 +119,10 @@
     display:         inline-block;
 }
 
+.sg-programming-lang:empty {
+    display: none;
+}
+
 .sg-topic-badge {
     display: inline-block;
     background-color: var(--bgColor-muted);
