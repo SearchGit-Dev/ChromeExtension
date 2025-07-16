@@ -60,6 +60,7 @@ function renderCards(repos) {
             linguistic_language,
             readme_filename,
             readme_normalized,
+            topics,
         } = repo;
 
         // build a short snippet from the normalized README
@@ -75,6 +76,10 @@ function renderCards(repos) {
         const card = document.createElement('div');
         card.className = 'sg-card';
         const updated_ago = Date.now() - (new Date(updated_at));
+        const firstFiveTopics = topics.slice(0, 5);
+        const topicsHtml = firstFiveTopics
+            .map(topic => `<span class="sg-topic-badge"># ${topic}</span>`)
+            .join("");
 
         card.innerHTML = /* html */ `
       <a href="${github_url}" target="_blank" class="sg-card-link">
@@ -94,7 +99,10 @@ function renderCards(repos) {
         <section class="sg-card-body">
           ${description ? `<p class="sg-card-desc">${description}</p>` : ''}
 
-         <span class="sg-stars-count">★ ${formatCount(stargazers_count)}</span>
+         <div style="display: flex; justify-content: start; gap: 8px; align-items: center">
+             <span class="sg-stars-count" style="margin-right:8px">★ ${formatCount(stargazers_count)}</span>
+             ${topicsHtml}
+         </div>
 
         </section>
       </a>
