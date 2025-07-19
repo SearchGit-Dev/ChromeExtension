@@ -49,6 +49,7 @@ function renderCards(repos) {
 
     repos.forEach(repo => {
         const {
+            id,
             owner_avatar_url,
             owner_login,
             name,
@@ -63,18 +64,12 @@ function renderCards(repos) {
             topics,
         } = repo;
 
-        // build a short snippet from the normalized README
-        const readmeSnippet = readme_normalized
-            ? readme_normalized
-                .trim()
-                .split(/\r?\n/)
-                .filter(Boolean)
-                .slice(0, 5)
-                .join('\n')
-            : '';
-
         const card = document.createElement('div');
         card.className = 'sg-card';
+        card.addEventListener('click', e => {
+            trackRepoSearchResultClick(id)
+        });
+
         const updated_ago = Date.now() - (new Date(updated_at));
         const firstFiveTopics = topics.slice(0, 5);
         const topicsHtml = firstFiveTopics
@@ -166,6 +161,26 @@ function expandTypeNavMore() {
     }
 }
 
+
+async function trackRepoSearchResultClick(repo_id) {
+    try {
+        const { query} = readQuery();
+        const jwt = await getJwt();
+        const body = {
+            referrer_query: query,
+            click_payload: { id: repo_id }
+        };
+        await fetch("https://api.searchgit.dev/tracking/repos-search/click", {
+            method:  "POST",
+            headers: {
+                "Content-Type":  "application/json",
+                "Authorization": `Bearer ${jwt}`
+            },
+            body: JSON.stringify(body)
+        });
+    } catch (err) {
+    }
+}
 
 async function overrideRepoResults() {
     if (!isRepoSearch()) return;
