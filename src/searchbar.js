@@ -1,4 +1,5 @@
 let lastSelection = null;
+let lastQueryRequested = "";
 const searchgit_typeahead_api_url = "https://api.searchgit.dev/search/typeahead";
 
 function getCurrentQuery() {
@@ -10,6 +11,7 @@ function getCurrentQuery() {
 }
 
 async function getTypeaheads(query) {
+    lastQueryRequested = query;
     const jwt = await getJwt();
     return await fetch(searchgit_typeahead_api_url, {
         method: "POST",
@@ -62,6 +64,9 @@ function inject_searchgit_searchbar() {
     });
     form.addEventListener('submit', e => {
         e.preventDefault();
+        if (lastSelection) {
+            trackTypeaheadClick(lastSelection.type, lastSelection.payload);
+        }
         if (lastSelection && lastSelection.type !== 'query') {
             window.location.href = lastSelection.payload.github_url;
         } else {
@@ -251,6 +256,7 @@ function inject_searchgit_searchbar() {
                 item.style.cursor = "pointer";
                 item.addEventListener('click', e => {
                     e.preventDefault();
+                    trackTypeaheadClick(type, payload);
                     if (type === 'query') {
                         const q = encodeURIComponent(payload.query);
                         window.location.href = `https://github.com/search?q=${q}`;
@@ -270,6 +276,7 @@ function inject_searchgit_searchbar() {
             const display = formatDisplay(sel);
             const input = document.getElementById('searchgit-searchbar');
             input.value = display;
+            trackTypeaheadClick(sel.type, sel.payload);
 
             if (e.detail.event?.key === 'Enter') {
                 if (sel.type === 'query') {
@@ -341,6 +348,28 @@ function formatDisplay(s) {
         case 'repo':         return s.payload.name;
         case 'user':
         case 'organization': return s.payload.login + '/';
+    }
+}
+
+async function trackTypeaheadClick(type, payload) {
+    try {
+        const jwt = await getJwt();
+        const referrer_query = lastQueryRequested;
+        const id = type === 'query' ? payload.query : payload.id;
+        const body = {
+            referrer_query,
+            click_type:   type,
+            click_payload: { id }
+        };
+        await fetch("https://api.searchgit.dev/tracking/typeahead/click", {
+            method:  "POST",
+            headers: {
+                "Content-Type":  "application/json",
+                "Authorization": `Bearer ${jwt}`
+            },
+            body: JSON.stringify(body)
+        });
+    } catch (err) {
     }
 }
 
