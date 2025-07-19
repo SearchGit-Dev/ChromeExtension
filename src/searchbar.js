@@ -269,24 +269,6 @@ function inject_searchgit_searchbar() {
         },
     }
     const autoCompleteJS = new autoComplete(autocomplete_config);
-    document
-        .querySelector('#searchgit-searchbar')
-        .addEventListener('selection', e => {
-            const sel = e.detail.selection.value;
-            const display = formatDisplay(sel);
-            const input = document.getElementById('searchgit-searchbar');
-            input.value = display;
-            trackTypeaheadClick(sel.type, sel.payload);
-
-            if (e.detail.event?.key === 'Enter') {
-                if (sel.type === 'query') {
-                    // send to GitHub’s search form
-                    input.form.submit();
-                } else {
-                    window.location.href = sel.payload.github_url;
-                }
-            }
-        });
 
     // keep arrow-key behavior unchanged
     document
