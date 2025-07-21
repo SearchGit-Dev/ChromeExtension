@@ -46,6 +46,7 @@ function renderCards(repos) {
     const container = document.createElement('div');
     container.id = 'sg-custom-results';
     container.className = 'sg-grid';   // 1-column grid per CSS you already set
+    const {query} = readQuery();
 
     repos.forEach(repo => {
         const {
@@ -66,10 +67,10 @@ function renderCards(repos) {
 
         const card = document.createElement('div');
         card.className = 'sg-card';
-        card.addEventListener('click', e => {
-            trackRepoSearchResultClick(id)
-        });
 
+        const url = new URL(github_url);
+        url.searchParams.set('referrer_channel', 'repos_search');
+        url.searchParams.set('referrer_query', query);
         const updated_ago = Date.now() - (new Date(updated_at));
         const firstFiveTopics = topics.slice(0, 5);
         const topicsHtml = firstFiveTopics
@@ -77,7 +78,7 @@ function renderCards(repos) {
             .join("");
 
         card.innerHTML = /* html */ `
-      <a href="${github_url}" target="_blank" class="sg-card-link">
+      <a href="${url}" target="_blank" class="sg-card-link">
         <section class="sg-card-header">
           <div style="display: flex; justify-content: space-between; margin-bottom: 4px">
             <time class="sg-updated-ago" datetime="${updated_at}">
@@ -158,27 +159,6 @@ function expandTypeNavMore() {
     const moreBtn = Array.from(navButtons).find(b => b.textContent.trim() === 'More');
     if (moreBtn) {
         moreBtn.click();
-    }
-}
-
-
-async function trackRepoSearchResultClick(repo_id) {
-    try {
-        const { query} = readQuery();
-        const jwt = await getJwt();
-        const body = {
-            referrer_query: query,
-            click_payload: { id: repo_id }
-        };
-        await fetch("https://api.searchgit.dev/tracking/repos-search/click", {
-            method:  "POST",
-            headers: {
-                "Content-Type":  "application/json",
-                "Authorization": `Bearer ${jwt}`
-            },
-            body: JSON.stringify(body)
-        });
-    } catch (err) {
     }
 }
 
