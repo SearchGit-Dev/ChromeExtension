@@ -334,24 +334,13 @@ function formatDisplay(s) {
 }
 
 async function trackTypeaheadClick(type, payload) {
-    try {
-        const jwt = await getJwt();
-        const referrer_query = lastQueryRequested;
-        const id = type === 'query' ? payload.query : payload.id;
-        const body = {
-            referrer_query,
-            click_type:   type,
-            click_payload: { id }
-        };
-        await fetch("https://api.searchgit.dev/tracking/typeahead/click", {
-            method:  "POST",
-            headers: {
-                "Content-Type":  "application/json",
-                "Authorization": `Bearer ${jwt}`
-            },
-            body: JSON.stringify(body)
-        });
-    } catch (err) {
+    // Only tracks query click! Other types are NOT tracked, as they are tracked after a repo/user/org page is clicked
+    if (type === 'query') {
+        const referrer = {
+            channel: 'typeahead',
+            query: lastQueryRequested
+        }
+        trackClick(referrer, 'query', payload.query)
     }
 }
 
