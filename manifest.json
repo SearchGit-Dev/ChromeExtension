@@ -23,6 +23,7 @@
       "js": [
         "src/autoComplete.js",
         "src/utils.js",
+        "src/tracking.js",
         "src/searchbar.js"
       ],
       "css": [
