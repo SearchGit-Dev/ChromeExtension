@@ -8,9 +8,9 @@ async function trackClick(referrer, entity_type, entity_id) {
                 id: entity_id
             }
         };
-        // console.log("trackClick")
-        // console.log(body)
-        await fetch("https://api.searchgit.dev/tracking/click", {
+        console.log("trackClick")
+        console.log(body)
+        const resp = await fetch("https://api.searchgit.dev/tracking/click", {
             method:  "POST",
             headers: {
                 "Content-Type":  "application/json",
@@ -18,7 +18,9 @@ async function trackClick(referrer, entity_type, entity_id) {
             },
             body: JSON.stringify(body)
         });
+        console.log(resp)
     } catch (err) {
+        console.log(err)
     }
 }
 

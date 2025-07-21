@@ -89,6 +89,12 @@ function inject_searchgit_searchbar() {
                     const data = response['secondary'];
                     for (let i = 0; i < data.length; i++) {
                         data[i]['query'] = query;       // placeholder for autocomplete to match everything
+                        if (data[i]['payload']['github_url']) {
+                            const url = new URL(data[i]['payload']['github_url']);
+                            url.searchParams.set('referrer_channel', 'typeahead');
+                            url.searchParams.set('referrer_query', query);
+                            data[i]['payload']['github_url'] = url.toString();
+                        }
                     }
                     return data;
                 } catch (error) {
