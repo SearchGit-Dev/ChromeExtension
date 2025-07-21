@@ -8,9 +8,7 @@ async function trackClick(referrer, entity_type, entity_id) {
                 id: entity_id
             }
         };
-        console.log("trackClick")
-        console.log(body)
-        const resp = await fetch("https://api.searchgit.dev/tracking/click", {
+        await fetch("https://api.searchgit.dev/tracking/click", {
             method:  "POST",
             headers: {
                 "Content-Type":  "application/json",
@@ -18,9 +16,7 @@ async function trackClick(referrer, entity_type, entity_id) {
             },
             body: JSON.stringify(body)
         });
-        console.log(resp)
     } catch (err) {
-        console.log(err)
     }
 }
 
@@ -34,19 +30,20 @@ function getReferrerFromURL() {
 
 function trackPageURLVisit() {
     const referrer = getReferrerFromURL();
-    const repoMeta = document.querySelector('meta[name="octolytics-dimension-repository_nwo"]');
+    const repoMeta = document.querySelector('meta[name="octolytics-dimension-repository_id"]');
     if (repoMeta) {
         trackClick(referrer, 'repo', repoMeta.content);
         return;
     }
-    const orgMeta = document.querySelector('meta[name="octolytics-dimension-organization_login"]');
-    if (orgMeta) {
-        trackClick(referrer, 'organization', orgMeta.content);
-        return;
-    }
-    const userMeta = document.querySelector('meta[name="octolytics-dimension-user_login"]');
+    const userMeta = document.querySelector('meta[name="octolytics-dimension-user_id"]');
     if (userMeta) {
         trackClick(referrer, 'user', userMeta.content);
+        return;
+    }
+    const maybeOrgMeta = document.querySelector('meta[name="hovercard-subject-tag"]');
+    if (maybeOrgMeta && maybeOrgMeta.content.startsWith("organization:")) {
+        const orgId = maybeOrgMeta.content.slice("organization:".length);
+        trackClick(referrer, 'organization', orgId);
         return;
     }
 }
