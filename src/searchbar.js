@@ -23,10 +23,75 @@ async function getTypeaheads(query) {
     });
 }
 
+function collapseNotLoggedinNav() {
+    // 1. Find the global nav
+    const nav = document.querySelector('nav.HeaderMenu-nav');
+    if (!nav) return;
+
+    // 2. Skip if user *is* logged in (profile menu present)
+    if (document.querySelector('summary[aria-label="View profile and more"]')) return;
+
+    // 3. Grab the <ul> of menu items
+    const menuList = nav.querySelector('ul');
+    if (!menuList) return;
+
+    // 4. Build a <details> wrapper
+    const details = document.createElement('details');
+    details.style.cssText = 'position: relative; display: inline-block;';
+
+    // 5. Build the toggle <summary>
+    const summary = document.createElement('summary');
+    // Use innerHTML so we can mix text + an inline SVG arrow
+    summary.innerHTML = `
+  Menu
+  <svg aria-hidden="true" height="12" viewBox="0 0 16 16" width="12" fill="currentColor" style="margin-left:4px;">
+    <path d="M2 5l6 6 6-6z"></path>
+  </svg>
+`;
+
+// Flex layout & styling
+    summary.style.cssText = [
+        'cursor: pointer',
+        'display: inline-flex',
+        'align-items: center',
+        'padding: 6px 10px',
+        'background: var(--color-btn-primary-bg)',
+        'color: var(--color-btn-primary-text)',
+        'border-radius: 4px',
+        'font-weight: 600',
+    ].join('; ');
+
+    details.appendChild(summary);
+
+    // 6. Clone in the existing list (so events/sub‐menus still work)
+    const listClone = menuList.cloneNode(true);
+    listClone.style.cssText = [
+        'position: absolute',
+        'top: 100%',
+        'left: 0',
+        'background: var(--color-canvas-default)',
+        'box-shadow: 0 4px 12px rgba(0,0,0,0.15)',
+        'border-radius: 4px',
+        'padding: 8px 0',
+        'margin: 4px 0 0',
+        'list-style: none',
+        'z-index: 1000',
+    ].join('; ');
+    details.appendChild(listClone);
+
+    // 7. Swap the old nav for our dropdown
+    nav.replaceWith(details);
+}
+
 function inject_searchgit_searchbar() {
-    const native_searchbar = document.getElementsByClassName("AppHeader-search")[0]
+    let native_searchbar = document.getElementsByClassName("AppHeader-search")[0]
     if (native_searchbar == null) {
-        return
+        // User is not logged in. In this case, let's try overriding the default navbar!
+        collapseNotLoggedinNav()
+        native_searchbar = document.getElementsByClassName("search-input")[0]
+        if (native_searchbar == null) {
+            return  // give up
+        }
     }
     if (document.getElementById("searchgit-searchbar") != null) {
         return
