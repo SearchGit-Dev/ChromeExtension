@@ -135,7 +135,11 @@ function formatCount(count) {
 }
 
 function getGithubRepoContainer() {
-    return document.querySelector('div[data-testid="results-list"]');
+    let resultsList = document.querySelector('div[data-testid="results-list"]');
+    if (resultsList != null) {
+        return resultsList;
+    }
+    return document.querySelector('div[data-hpc="true"]');
 }
 
 function getGithubPagination() {
