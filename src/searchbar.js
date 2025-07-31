@@ -129,14 +129,18 @@ function inject_searchgit_searchbar() {
     });
     form.addEventListener('submit', e => {
         e.preventDefault();
+        const formData = new FormData(form);
+        const queryInSearchbar = (searchgit_searchbar?.value || '').trim();
         if (lastSelection) {
             trackTypeaheadClick(lastSelection.type, lastSelection.payload);
+        } else {
+            trackClick(null, 'query', queryInSearchbar);
         }
         if (lastSelection && lastSelection.type !== 'query') {
             window.location.href = lastSelection.payload.github_url;
         } else {
             // do full page load so that search_results.js can be executed properly
-            const params = new URLSearchParams(new FormData(form)).toString();
+            const params = new URLSearchParams(formData).toString();
             window.location.href = `${form.action}?${params}`;
         }
     });
