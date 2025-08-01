@@ -181,7 +181,12 @@ function inject_searchgit_searchbar() {
         events: {
             input: {
                 focus: () => {
-                    autoCompleteJS.start(" ");
+                    const queryInSearchbar = (searchgit_searchbar?.value || '').trim();
+                    if (queryInSearchbar) {
+                        autoCompleteJS.start();
+                    } else {
+                        autoCompleteJS.start(" ");
+                    }
                 }
             }
         },
