@@ -227,6 +227,9 @@ function inject_searchgit_searchbar() {
                     case "query": {
 
                         const left = document.createElement("div");
+                        if (typeahead_item.is_recently_searched) {
+                            left.style.color = 'var(--color-ansi-blue)'; left.style.fontWeight = '650';
+                        }
                         left.style.display = "flex";
                         left.style.alignItems = "center";
 
@@ -281,6 +284,9 @@ function inject_searchgit_searchbar() {
                     case "repo":
                     {
                         const left = document.createElement("div");
+                        if (typeahead_item.is_recently_searched) {
+                            left.style.color = 'var(--color-ansi-blue)'; left.style.fontWeight = '650';
+                        }
                         left.style.display = "flex";
                         left.style.alignItems = "center";
 
@@ -309,6 +315,9 @@ function inject_searchgit_searchbar() {
                     case "user":
                     {
                         const left = document.createElement("div");
+                        if (typeahead_item.is_recently_searched) {
+                            left.style.color = 'var(--color-ansi-blue)'; left.style.fontWeight = '650';
+                        }
                         left.style.display = "flex";
                         left.style.alignItems = "center";
                         left.appendChild(renderAvatar(payload.avatar_url, payload.login));
@@ -327,6 +336,9 @@ function inject_searchgit_searchbar() {
                     case "organization":
                     {
                         const left = document.createElement("div");
+                        if (typeahead_item.is_recently_searched) {
+                            left.style.color = 'var(--color-ansi-blue)'; left.style.fontWeight = '650';
+                        }
                         left.style.display = "flex";
                         left.style.alignItems = "center";
                         left.appendChild(renderAvatar(payload.avatar_url, payload.login));
