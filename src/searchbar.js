@@ -149,6 +149,10 @@ function inject_searchgit_searchbar() {
         placeHolder: 'Search Github',
         selector: "#searchgit-searchbar",
         debounce: 0,
+        threshold: 0, // allow empty-string triggering
+        trigger: (query) => {
+            return true
+        },
         searchEngine: "loose",
         data: {
             src: async (query) => {
@@ -177,13 +181,13 @@ function inject_searchgit_searchbar() {
         events: {
             input: {
                 focus: () => {
-                    if (autoCompleteJS.input.value.length) autoCompleteJS.start();
+                    autoCompleteJS.start(" ");
                 }
             }
         },
         resultsList: {
             noResults: false,
-            maxResults: 20,
+            maxResults: undefined,
             tabSelect: true
         },
         resultItem: {
