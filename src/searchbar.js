@@ -235,22 +235,27 @@ function inject_searchgit_searchbar() {
 
                         // 1) create an inline SVG search icon
                         const search_icon = document.createElement("span");
-                        search_icon.innerHTML = `
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 16 16"
-      width="16" height="16"
-      fill="currentColor"
-      style="margin-right: 0.5rem; flex-shrink: 0;"
-    >
-      <path fill-rule="evenodd"
-        d="M15.7 14.3l-4-4a6.5 6.5 0 1 0-1.4 1.4l4 4a1 1 0 0 0 1.4-1.4zM6.5 12a5.5 
-           5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"
-      />
-    </svg>
-  `;
+                        if (typeahead_item.is_recently_searched) {
+                            search_icon.innerHTML = `
+                            <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true"
+                                 xmlns="http://www.w3.org/2000/svg">
+                              <path
+                                fill="currentColor"
+                                stroke="currentColor"
+                                stroke-width="1.2"
+                                stroke-linejoin="round"
+                                d="M22.719 12A10.719 10.719 0 0 1 1.28 12h.838a9.916 9.916 0 1 0 1.373-5H8v1H2V2h1v4.2A10.71 10.71 0 0 1 22.719 12zM16 13h-4V7h-1v7h5z"/>
+                              <path fill="none" d="M0 0h24v24H0z"/>
+                            </svg>`;
+                        } else {
+                            search_icon.innerHTML = `
+                            <svg aria-hidden="true" viewBox="0 0 16 16" width="16" height="16" fill="currentColor" style="flex-shrink: 0;">
+                              <path fill-rule="evenodd" d="M15.7 14.3l-4-4a6.5 6.5 0 1 0-1.4 1.4l4 4a1 1 0 0 0 1.4-1.4zM6.5 12a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/>
+                            </svg>
+                            `;
+                        }
                         search_icon.style.marginLeft = '3.5px'
-                        search_icon.style.marginRight = '0.5px'
+                        search_icon.style.marginRight = '0.5rem'
 
                         // 2) set the item’s text
                         const label = document.createElement("span");
