@@ -230,6 +230,9 @@ function inject_searchgit_searchbar() {
                         if (typeahead_item.is_recently_searched) {
                             left.style.color = 'var(--color-ansi-magenta)'; left.style.fontWeight = '650';
                         }
+                        if (payload.is_typo_correction) {
+                            left.style.fontWeight = 'bold';
+                        }
                         left.style.display = "flex";
                         left.style.alignItems = "center";
 
