@@ -65,6 +65,7 @@ function renderCards(repos) {
             readme_filename,
             readme_normalized,
             topics,
+            is_recently_viewed
         } = repo;
 
         const card = document.createElement('div');
@@ -78,6 +79,11 @@ function renderCards(repos) {
         const topicsHtml = firstFiveTopics
             .map(topic => `<span class="sg-topic-badge"># ${topic}</span>`)
             .join("");
+        if (is_recently_viewed) {
+            title_color = 'var(--color-ansi-magenta)';
+        } else {
+            title_color = 'var(--color-ansi-blue)';
+        }
 
         card.innerHTML = /* html */ `
       <a href="${url}" target="_blank" class="sg-card-link">
@@ -90,7 +96,7 @@ function renderCards(repos) {
           </div>
           <div style="display: flex; justify-content: start; align-items: center">
              <img src="${owner_avatar_url}"  class="sg-card-avatar" alt="${owner_login} avatar">
-             <div class="sg-card-title"><h3>${owner_login}/${name}</h3></div>
+             <h3 class="sg-card-title" style="color: ${title_color}">${owner_login}/${name}</h3>
             </div>
         </section>
 

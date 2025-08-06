@@ -47,12 +47,11 @@
 }
 
 /* Repo title */
-.sg-card-header h3 {
+.sg-card-title {
     margin: 0;
     font-size: 1.2rem;
     font-weight: 600;
     line-height: 1;
-    color: var(--color-ansi-blue);
     word-break: break-word;
 }
 

@@ -228,7 +228,7 @@ function inject_searchgit_searchbar() {
 
                         const left = document.createElement("div");
                         if (typeahead_item.is_recently_searched) {
-                            left.style.color = 'var(--color-ansi-blue)'; left.style.fontWeight = '650';
+                            left.style.color = 'var(--color-ansi-magenta)'; left.style.fontWeight = '650';
                         }
                         left.style.display = "flex";
                         left.style.alignItems = "center";
@@ -285,7 +285,7 @@ function inject_searchgit_searchbar() {
                     {
                         const left = document.createElement("div");
                         if (typeahead_item.is_recently_searched) {
-                            left.style.color = 'var(--color-ansi-blue)'; left.style.fontWeight = '650';
+                            left.style.color = 'var(--color-ansi-magenta)'; left.style.fontWeight = '650';
                         }
                         left.style.display = "flex";
                         left.style.alignItems = "center";
@@ -316,7 +316,7 @@ function inject_searchgit_searchbar() {
                     {
                         const left = document.createElement("div");
                         if (typeahead_item.is_recently_searched) {
-                            left.style.color = 'var(--color-ansi-blue)'; left.style.fontWeight = '650';
+                            left.style.color = 'var(--color-ansi-magenta)'; left.style.fontWeight = '650';
                         }
                         left.style.display = "flex";
                         left.style.alignItems = "center";
@@ -337,7 +337,7 @@ function inject_searchgit_searchbar() {
                     {
                         const left = document.createElement("div");
                         if (typeahead_item.is_recently_searched) {
-                            left.style.color = 'var(--color-ansi-blue)'; left.style.fontWeight = '650';
+                            left.style.color = 'var(--color-ansi-magenta)'; left.style.fontWeight = '650';
                         }
                         left.style.display = "flex";
                         left.style.alignItems = "center";
