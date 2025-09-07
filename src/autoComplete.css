@@ -75,7 +75,7 @@
 
 .autoComplete_wrapper > ul > li:hover,
 .autoComplete_wrapper > ul > li[aria-selected="true"] {
-    background-color: var(--bgColor-muted);
+    background-color: var(--bgColor-accent-muted);
 }
 
 .autoComplete_wrapper > ul > li mark {

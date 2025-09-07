@@ -117,9 +117,7 @@ function inject_searchgit_searchbar() {
     credit.style.position = "absolute";
     credit.style.right = "36px";
     credit.style.fontSize = "0.65em";
-    credit.style.opacity = "0.6";
-    credit.style.background = "linear-gradient(90deg, #6366f1, #3b82f6)";
-    credit.style.color = "white";
+    credit.style.backgroundColor = "var(--bgColor-accent-muted)";
     credit.style.padding = "2px 6px";
     credit.style.borderRadius = "6px";
     credit.style.fontFamily = "monospace";
