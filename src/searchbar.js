@@ -113,12 +113,17 @@ function inject_searchgit_searchbar() {
 
     form.style.position = "relative";
     const credit = document.createElement("span");
-    credit.textContent = "powered by SearchGit";
+    credit.textContent = "SearchGit v1.3";
     credit.style.position = "absolute";
-    credit.style.fontSize = "0.5em";         // super small
-    credit.style.opacity  = "0.3";
-    credit.style.pointerEvents = "none";     // don’t get in the way of clicks
     credit.style.right = "36px";
+    credit.style.fontSize = "0.65em";
+    credit.style.opacity = "0.6";
+    credit.style.background = "linear-gradient(90deg, #6366f1, #3b82f6)";
+    credit.style.color = "white";
+    credit.style.padding = "2px 6px";
+    credit.style.borderRadius = "6px";
+    credit.style.fontFamily = "monospace";
+    credit.style.pointerEvents = "none";
     form.appendChild(credit);
 
     native_searchbar.replaceWith(form)
