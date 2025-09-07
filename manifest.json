@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "SearchGit: Typeahead + Semantic Search for GitHub",
-  "description": "Supercharge your GitHub searchbar with search as you type and semantic search over repository READMEs.",
+  "description": "Power up GitHub search with instant typeahead, multilingual semantic README search, and quick access to your recent queries.",
   "version": "1.3",
   "icons": {
     "16": "icons/16x16.png",
