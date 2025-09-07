@@ -184,10 +184,20 @@ function expandTypeNavMore() {
     }
 }
 
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 async function overrideRepoResults() {
     if (!isRepoSearch()) return;
 
-    const githubReposContainer = getGithubRepoContainer();
+    let githubReposContainer;
+    for (let i = 0; i < 30; i++) {
+        githubReposContainer = getGithubRepoContainer();
+        if (!githubReposContainer) {
+            await sleep(100);
+        } else {
+            break
+        }
+    }
     if (githubReposContainer) {
         githubReposContainer.style.display = 'none';
         if (getGithubPagination()) {
@@ -232,10 +242,5 @@ async function overrideRepoResults() {
         skeletonList.remove();
     }
 }
-
-const search_results_observer = new MutationObserver(function(mutationsList, observer) {
-    overrideRepoResults()
-});
-search_results_observer.observe(document.body, { childList: true, subtree: true });
 
 overrideRepoResults()
