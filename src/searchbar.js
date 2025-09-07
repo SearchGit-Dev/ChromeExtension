@@ -113,10 +113,10 @@ function inject_searchgit_searchbar() {
 
     form.style.position = "relative";
     const credit = document.createElement("span");
-    credit.textContent = "Jiaming Liu @ UCSB";
+    credit.textContent = "powered by SearchGit";
     credit.style.position = "absolute";
     credit.style.fontSize = "0.5em";         // super small
-    credit.style.opacity  = "0.05";           // almost invisible
+    credit.style.opacity  = "0.3";
     credit.style.pointerEvents = "none";     // don’t get in the way of clicks
     credit.style.right = "36px";
     form.appendChild(credit);
