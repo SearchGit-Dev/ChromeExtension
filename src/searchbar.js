@@ -23,6 +23,33 @@ async function getTypeaheads(query) {
     });
 }
 
+function get_current_repo() {
+    const pathParts = window.location.pathname.split('/').filter(Boolean);
+
+    // --- Case 1: Direct repo browsing ---
+    if (pathParts.length >= 2) {
+        const [owner, name] = pathParts;
+        const nonRepoRoots = new Set([
+            'settings', 'marketplace', 'explore', 'notifications',
+            'features', 'topics', 'collections', 'events', 'issues',
+            'pulls', 'sponsors', 'orgs', 'login', 'join', 'search'
+        ]);
+        if (!nonRepoRoots.has(owner)) {
+            return { owner, name };
+        }
+    }
+
+    // --- Case 2: Search page with "repo:" filter ---
+    if (window.location.pathname.startsWith("/search")) {
+        const params = new URLSearchParams(window.location.search);
+        const q = params.get("q") || "";
+        const match = q.match(/repo:([A-Za-z0-9_.-]+)\/([A-Za-z0-9_.-]+)/);
+        if (match) {
+            return { owner: match[1], name: match[2] };
+        }
+    }
+}
+
 function collapseNotLoggedinNav() {
     // 1. Find the global nav
     const nav = document.querySelector('nav.HeaderMenu-nav');
@@ -100,7 +127,12 @@ function inject_searchgit_searchbar() {
     searchgit_searchbar.id = "searchgit-searchbar"
     searchgit_searchbar.name = "q"        // THIS is the key GitHub looks for
     searchgit_searchbar.autocomplete = "off"
-    searchgit_searchbar.value = getCurrentQuery()
+    if (getCurrentQuery()) {
+        searchgit_searchbar.value = getCurrentQuery()
+    } else if (get_current_repo()) {
+        const cur_repo = get_current_repo();
+        searchgit_searchbar.value = 'repo:' + cur_repo.owner + '/' + cur_repo.name + ' ';
+    }
 
     const form = document.createElement("form")
     form.action = "https://github.com/search"
