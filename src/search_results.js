@@ -213,9 +213,6 @@ async function overrideRepoResults() {
     }
 
     let searchgitReposContainer = document.getElementById('searchgit-repo-results');
-    if (searchgitReposContainer != null) {
-        return
-    }
     if (!searchgitReposContainer) {
         searchgitReposContainer = document.createElement('div');
         searchgitReposContainer.id = 'searchgit-repo-results';
