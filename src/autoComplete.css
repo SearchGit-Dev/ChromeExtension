@@ -60,6 +60,15 @@
     border:           1px solid var(--borderColor-default);
 }
 
+.autoComplete_wrapper > ul::after {
+    content: "Credit: Jiaming L, Dhruva S";
+    display: block;
+    font-size: 0.5rem;   /* smaller text */
+    color: var(--fgColor-muted, #666);
+    text-align: center;    /* or left/center depending on preference */
+    padding: 0 0.5rem;
+}
+
 .autoComplete_wrapper > ul > li {
     margin: 0.3rem;
     padding: 0.3rem 0.5rem;
