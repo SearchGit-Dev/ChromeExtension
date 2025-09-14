@@ -145,7 +145,7 @@ function inject_searchgit_searchbar() {
 
     form.style.position = "relative";
     const credit = document.createElement("span");
-    credit.textContent = "SearchGit v1.3";
+    credit.textContent = "SearchGit v1.5";
     credit.style.position = "absolute";
     credit.style.right = "36px";
     credit.style.fontSize = "0.65em";
